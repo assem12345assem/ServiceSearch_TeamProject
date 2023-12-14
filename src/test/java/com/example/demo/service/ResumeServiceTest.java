@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ResumeDto;
+import com.example.demo.dto.ResumeViewDto;
 import com.example.demo.entities.Category;
 import com.example.demo.entities.Resume;
 import com.example.demo.entities.Specialist;
@@ -50,7 +51,7 @@ public class ResumeServiceTest {
     }
 @Test
 public void should_get_one_resume() {
-        ResumeDto r = resumeService.getResumeById(1L);
+        ResumeViewDto r = resumeService.getResumeById(1L);
     assertNotNull(r);
 }
     private Category mockCategory() {

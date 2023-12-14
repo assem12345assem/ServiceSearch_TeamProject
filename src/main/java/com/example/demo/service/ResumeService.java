@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ResumeDto;
+import com.example.demo.dto.ResumeViewDto;
+import com.example.demo.entities.Category;
 import com.example.demo.entities.Resume;
 import com.example.demo.entities.Specialist;
 import com.example.demo.entities.User;
@@ -131,8 +133,21 @@ public class ResumeService {
         return resumes.stream().map(this::makeDto).toList();
     }
 
-    public ResumeDto getResumeById(Long resumeId) {
+    public ResumeViewDto getResumeById(Long resumeId) {
         Resume resume = resumeRepository.findById(resumeId).orElseThrow(() -> new NoSuchElementException("resume not found"));
-        return makeDto(resume);
+        Category category = resume.getCategory();
+
+        String phoneNumber = userService.getPhoneNumberBySpecialistId(resume.getSpecialist().getId());
+        String resumeName = (resume.getName() != null) ? resume.getName() : "";
+
+        return ResumeViewDto.builder()
+                .id(resume.getId())
+                .name(resumeName)
+                .specialistId(resume.getSpecialist().getId())
+                .timeOfResume(resume.getTimeOfResume())
+                .resumeDescription(resume.getResumeDescription())
+                .category(category.getCategoryName())
+                .phoneNumber(phoneNumber)
+                .build();
     }
 }

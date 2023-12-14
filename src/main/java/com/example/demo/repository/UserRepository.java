@@ -28,4 +28,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findUserByResetPasswordToken(String token);
 
+    Optional<User> findBySpecialistId(Long specialistId);
+
 }

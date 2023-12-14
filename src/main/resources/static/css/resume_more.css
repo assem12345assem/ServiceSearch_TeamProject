@@ -12,9 +12,9 @@ body {
 }
 .tab-container {
     background-color: rgb(255, 255, 255);
-    border-top-left-radius: 18px; /* Только верхнее левое округление */
-    border-top-right-radius: 18px; /* Только верхнее правое округление */
-    box-shadow: 0px 5px 15px rgba(0.0, 0.0, 0.1, 0.4); /* Тень только в верхней части */
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    box-shadow: 0px 5px 15px rgba(0.0, 0.0, 0.1, 0.4);
     overflow: hidden;
     margin: 0;
     padding: 0;
@@ -66,31 +66,23 @@ body {
 .resume-list{
     margin-top: 20px;
 }
-.resume{
-    background-color: rgb(255, 255, 255);
-    border-radius: 15px;
-    padding: 5px 10px;
-    margin: 20px 0px;
-    box-shadow: 0px 5px 15px rgba(0.0, 0.0, 0.1, 0.1);
-}
+
 .dark-theme .resume {
     background-color: #333;
     color: #fff;
     box-shadow: 0 5px 15px rgba(247, 241, 241, 0.614);
 }
-.resume:hover{
-    box-shadow: 0px 5px 18px rgba(0.1, 0.2, 0.3, 0.4);
-}
 
 .resume p{
+    color: #333333;
     margin: 0rem;
 }
 
 .resume-link {
-    text-decoration: none; /* Убираем подчеркивание */
-    color: inherit; /* Наследовать цвет текста */
-    display: block; /* Занимать всю ширину карточки */
-    border-radius: inherit; /* Наследовать округленные углы */
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    border-radius: inherit;
 }
 
 
@@ -98,24 +90,23 @@ body {
     font-size: 18px;
     padding: 8px 0px;
     font-weight: bold;
-    color: #2552e7;
+    color: #7F88FF;
     margin-bottom: 6px;
 }
 
 .resume-experience, .resume-category, .resume-date{
     font-size: 15px;
     opacity: 65%;
+    margin-bottom: 20px;
 }
 
 .back-button {
     text-decoration: none;
-    color: #2552e7;
+    color: #7F88FF;
     display: flex;
     align-items: center;
     font-size: 18px;
-    margin-right: 40px;
-    margin-left: 10px;
-    margin-bottom: 20px;
+    margin: 15px;
 }
 
 .back-button i {
@@ -150,7 +141,7 @@ body {
 
 .view-button{
     border: none;
-    background-color: #4b71ec;
+    background-color: #7F88FF;
     color: white;
     padding: 10px 15px;
     border-radius: 15px;
@@ -185,7 +176,6 @@ body {
 .resume {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     padding: 20px;
     max-width: 400px;
     margin: 0 auto;
@@ -199,7 +189,7 @@ body {
 .resume-name {
     font-size: 24px;
     font-weight: bold;
-    color: #2552e7;
+    color: #7F88FF;
     margin-bottom: 10px;
 }
 .dark-theme .resume-name {
@@ -222,7 +212,7 @@ body {
 }
 
 .view-button {
-    background-color: #2552e7;
+    background-color: #7F88FF;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
@@ -233,11 +223,12 @@ body {
 }
 
 .view-button:hover {
-    background-color: #0056b3;
+    background-color: #636cec;
 }
 
 .resume i {
     margin-right: 10px;
+    color: #333333;
 }
 
 .resume-category, .resume-experience, .resume-description, .resume-phone, .resume-buttons {
@@ -258,12 +249,10 @@ body {
 .header {
     background-color: #fffdfd;
     color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 10px 20px;
     margin-bottom: 20px;
 }
+
 .dark-theme .header {
     background-color: #333;
     color: white;
@@ -276,7 +265,7 @@ body {
 }
 
 .favorite-button svg{
-    color: #2552e7;
+    color: #7F88FF;
 }
 
 .favorite-button svg:hover{
@@ -290,7 +279,7 @@ body {
 }
 
 .share-button svg{
-    color: #2552e7;
+    color: #7F88FF;
 }
 
 .share-button svg:hover{
@@ -303,6 +292,8 @@ body {
         max-width: 700px;
         margin: 0 auto;
     }
-
 }
 
+.resume-phone {
+    color: #333333;
+}

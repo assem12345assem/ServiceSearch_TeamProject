@@ -531,6 +531,13 @@ public class UserService {
             return new ResponseEntity<>("Blocked", HttpStatus.OK);
         }
     }
+
+
+    public String getPhoneNumberBySpecialistId(Long specialistId){
+        User user = repository.findBySpecialistId(specialistId).orElseThrow(() -> new NoSuchElementException("User not found"));
+        return user.getPhoneNumber();
+    }
+
     public UserDto getUserById(long id){
         return makeUserDto(repository.findById(id).orElseThrow());
     }

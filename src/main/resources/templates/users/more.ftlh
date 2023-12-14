@@ -33,7 +33,7 @@
 <div class="container mt-5">
     <div class="card user-card">
         <div class="card-header">
-            Данные о пользоваетеле
+            Данные о пользователе
         </div>
         <div class="card-body">
             <h5 class="card-title">Имя: ${user.userName}</h5>
