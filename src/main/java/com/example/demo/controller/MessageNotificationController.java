@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 
 import com.example.demo.dto.UserDto;
-import com.example.demo.entities.User;
 import com.example.demo.service.MessageService;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;

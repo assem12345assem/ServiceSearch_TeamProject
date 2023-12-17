@@ -36,9 +36,6 @@ databaseChangeLog:
                   name: role_id
                   type: bigserial
               - column:
-                  name: tariff_id
-                  type: bigserial
-              - column:
                   name: theme_id
                   type: bigserial
               - column:

@@ -66,7 +66,7 @@ public class MessageService {
             for (Message m : messages) {
                 if (m.getSender().getId().equals(l)) {
                     list.add(MessageBundleDto.builder()
-                            .id(new StringBuilder().append("msg").append("-").append(m.getSender().getId()).toString())
+                            .id("msg" + "-" + m.getSender().getId())
                             .senderPhoto(m.getSender().getPhoto())
                             .senderName(m.getSender().getUserName())
                             .lastMessageText(m.getMessageText())
@@ -76,7 +76,7 @@ public class MessageService {
 
                 } else if (m.getReceiver().getId().equals(l)) {
                     list.add(MessageBundleDto.builder()
-                            .id(new StringBuilder().append("msg").append("-").append(m.getReceiver().getId()).toString())
+                            .id("msg" + "-" + m.getReceiver().getId())
                             .senderPhoto(m.getReceiver().getPhoto())
                             .senderName(m.getReceiver().getUserName())
                             .lastMessageText(m.getMessageText())

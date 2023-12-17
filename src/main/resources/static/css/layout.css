@@ -43,7 +43,7 @@ body {
 }
 
 .tab {
-    color: #2552e7;
+    color: #7F88FF;
     text-decoration: none;
     display: flex;
     flex-direction: column;
@@ -176,8 +176,8 @@ body {
 }
 .respond-button {
     padding: 15px 20px;
-    color: #2552e7;
-    border: 2px solid #2552e7;
+    color: #7F88FF;
+    border: 2px solid #7F88FF;
     background-color: #fff;
     cursor: pointer;
     border-radius: 15px;
@@ -189,13 +189,13 @@ body {
     color: #fff;
 }
 .dark-theme .respond-button {
-    background-color: #2552e7;
+    background-color: #7F88FF;
     color: #ffffff;
 }
 
 .dark-theme .respond-button:hover {
     background-color: #cccccc;
-    color: #2552e7;
+    color: #7F88FF;
 }
 @media (max-width: 600px) {
     .respond-button {

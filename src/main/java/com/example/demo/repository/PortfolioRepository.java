@@ -23,8 +23,7 @@ public interface PortfolioRepository extends JpaRepositoryImplementation<Portfol
 
     @Query(nativeQuery = true, value = """
             select exists(
-            select * 
-            from portfolios
+            select * from portfolios
             where id = :portfolioId and specialist_id = :specialistId and specialist_id in (
                                     SELECT specialists.id
                                     from specialists

@@ -30,7 +30,7 @@ public class PortFolioController {
     }
     @GetMapping("/new")
     public String createNew() {
-        return "specialist/new_portfolio";
+        return "portfolio/new_portfolio";
     }
 
     @GetMapping("/{portfolioId}")

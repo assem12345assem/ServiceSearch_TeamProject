@@ -228,7 +228,6 @@
 
         button.button-msg {
             padding: 8px 0;
-            font-family: Times;
         }
 
         a.button-msg {

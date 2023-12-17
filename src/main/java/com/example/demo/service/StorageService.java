@@ -55,7 +55,7 @@ public class StorageService {
         try {
             return IOUtils.toByteArray(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.warn("Could not download file from storage: " + fileName);
         }
         return null;
     }

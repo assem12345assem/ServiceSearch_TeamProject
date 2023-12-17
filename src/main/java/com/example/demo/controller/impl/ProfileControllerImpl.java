@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -31,7 +30,7 @@ public class ProfileControllerImpl implements ProfileController {
     private final SpecialistRepository specialistRepository;
     private final PortfolioService portfolioService;
     private final GeolocationService geolocationService;
-private final ContactsService contactsService;
+    private final ContactsService contactsService;
 
     @Override
     public String profile(Authentication auth, Model model) {
@@ -48,7 +47,7 @@ private final ContactsService contactsService;
 
             model.addAttribute("resumes", resumeService.getResumesByUserId(currentUser.getId()));
             model.addAttribute("portfolios", portfolioService.getPortfolioListBySpecialistId(specialistId));
-            model.addAttribute("rating", ratingService.getSpecialistRatingById(currentUser.getId()));
+            model.addAttribute("rating", ratingService.getSpecialistRatingById(specialistId));
             model.addAttribute("qrCodeBase64", qrCodeBase64);
         }
 
@@ -68,37 +67,26 @@ private final ContactsService contactsService;
         if (Objects.equals(currentUser.getId(), userId)) {
             return "redirect:/profile";
         }
-        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
-        String userRole = user.getRole().getRole();
+        UserDto userDto = userService.getUserById(userId);
+        User user = userRepository.findById(userId).orElseThrow();
+        String userRole = userDto.getRole();
         if (userRole.equalsIgnoreCase("ROLE_SPECIALIST")) {
             model.addAttribute("resumes", resumeService.getResumesByUserId(user.getId()));
             model.addAttribute("rating", ratingService.getSpecialistRatingById(user.getSpecialist().getId()));
             model.addAttribute("specialistId", user.getSpecialist().getId());
+            model.addAttribute("portfolios", portfolioService.getPortfolioListBySpecialistId(user.getSpecialist().getId()));
         }
         if (userRole.equalsIgnoreCase("ROLE_CUSTOMER")) {
             model.addAttribute("stands", postService.getCustomerPostDtos(user.getId()));
         }
-        model.addAttribute("user", user);
+        model.addAttribute("user", userDto);
+        model.addAttribute("businessCard", contactsService.getBusinessCardByUser(user));
         return "users/profileForAnother";
     }
 
     @Override
     public String getProfileEdit(Model model, Authentication auth) {
         UserDto currentUser = userService.getUserByAuthentication(auth);
-        /*
-         я закомментировала эту часть кода, т.к. up'ать профиль - в нашей интерпретации - это про резюме
-         */
-//        if (updateCountsRepository.existsByUserId(currentUser.getId())) {
-//            UpdateCounts currentCount = updateCountsRepository.findByUserId(currentUser.getId()).
-//                    orElseThrow(() -> new NoSuchElementException("No such count!"));
-//            if (currentCount.getCount() == 5) {
-//                if (updateCountsService.hasThirtyDaysPassed(currentCount.getUpdateTime())) {
-//                    updateCountsService.deleteCount(currentCount.getId());
-//                } else {
-//                    model.addAttribute("restricted", "restricted");
-//                }
-//            }
-//        }
         model.addAttribute("countries", geolocationService.getCountries());
         model.addAttribute("user", currentUser);
         return "users/edit";

@@ -1,7 +1,6 @@
 
-insert into SPECIALISTS (TARIFF_ID, USER_ID, COMPANY_NAME)
+insert into SPECIALISTS (USER_ID, COMPANY_NAME)
 VALUES (
-           (select id from TARIFFS where TARIFF_NAME = 'free'),
            (select id from USERS where PHONE_NUMBER = '123' ),
            'Services Co.'
        );
@@ -29,13 +28,13 @@ insert into PHOTOS (PORTFOLIO_ID, PHOTO_LINK)
 VALUES ( (select id from portfolios where title = 'Примеры моих работ'), 'https://www.imperialhotel.ru/upload/iblock/f7b/photo_2021-06-30_13-27-56.jpg' ),
        ((select id from portfolios where title = 'Примеры моих работ'), 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Basingstoke_Sports_Centre_Pool.jpg');
 
-insert into RESUMES (CATEGORY_ID, SPECIALIST_ID, TIME_OF_RESUME, RESUME_DESCRIPTION)
+insert into RESUMES (CATEGORY_ID, SPECIALIST_ID, TIME_OF_RESUME, RESUME_DESCRIPTION, name)
 VALUES (
            (select  id from  CATEGORIES where CATEGORY_NAME like 'Строительные работы%'),
-           (select  id from specialists where company_name = 'Services Co.'), '2023-10-18 12:00:00', 'строительство бассейнов, срок строительства от 6 мес., от $20000'),
+           (select  id from specialists where company_name = 'Services Co.'), '2023-10-18 12:00:00', 'строительство бассейнов, срок строительства от 6 мес., от $20000', 'Строительство прудов, бассейнов'),
        (
            (select id from CATEGORIES where CATEGORY_NAME like 'Строительные работы и ремонт'),
-           (select  id from specialists where company_name = 'Services Co.'), '2023-10-19 12:00:00', 'сантех-работы');
+           (select  id from specialists where company_name = 'Services Co.'), '2023-10-19 12:00:00', 'сантех-работы', 'Сантехнические работы');
 
 insert into FAVOURITES (SPECIALIST_ID, USER_ID)
 VALUES ( (select  id from specialists where company_name = 'Services Co.'),  (select  id from users where phone_number = '1234'));

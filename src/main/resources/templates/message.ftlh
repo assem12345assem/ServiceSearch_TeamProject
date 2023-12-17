@@ -1,5 +1,6 @@
 <#import "layout.ftlh" as main>
 <@main.layout>
+    <title>Сообщение</title>
     <style>
         .message-block{
             margin-top: 150px;

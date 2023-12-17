@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.Optional;
+import java.util.*;
 
 public interface UpdateCountsRepository extends JpaRepository<UpdateCounts,Integer> {
     @Transactional
@@ -18,4 +18,6 @@ public interface UpdateCountsRepository extends JpaRepository<UpdateCounts,Integ
 
 
     Optional<UpdateCounts> findByUserId(long userId);
+
+    List<UpdateCounts> findAllByUserId(Long id);
 }

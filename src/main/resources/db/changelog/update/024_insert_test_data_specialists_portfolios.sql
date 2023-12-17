@@ -1,5 +1,5 @@
-insert into SPECIALISTS (TARIFF_ID, USER_ID, COMPANY_NAME)
-VALUES ((select id from TARIFFS where TARIFF_NAME ilike 'free'),
+insert into SPECIALISTS (USER_ID, COMPANY_NAME)
+VALUES (
         (select id from USERS where PHONE_NUMBER = '111-111-1111'),
         'Attractor Co.');
 

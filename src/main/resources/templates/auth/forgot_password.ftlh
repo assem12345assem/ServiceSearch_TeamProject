@@ -1,5 +1,6 @@
 <#import "../layout.ftlh" as main>
 <@main.layout>
+    <title>Забыли пароль?</title>
     <style>
 
         #send-button {

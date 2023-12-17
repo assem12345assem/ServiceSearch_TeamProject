@@ -19,17 +19,17 @@ import java.io.IOException;
 public interface AuthController {
 
     @GetMapping("/register")
-    public String register(Model model) throws IOException;
+    String register(Model model) throws IOException;
 
     @PostMapping("/register")
-    public String register(@Valid UserDto userDto, BindingResult bindingResult) throws IOException;
+    String register(@Valid UserDto userDto, BindingResult bindingResult) throws IOException;
 
     @GetMapping("/login")
-    public String login(@RequestParam(defaultValue = "false", required = false) Boolean error, Model model);
+    String login(@RequestParam(defaultValue = "false", required = false) Boolean error, Model model);
 
     @GetMapping("/oauth_2")
-    public String pickRole(Model model);
+    String pickRole(Model model);
 
     @PostMapping("/oauth_2")
-    public String pickRole(HttpServletRequest request, Authentication auth);
+    String pickRole(HttpServletRequest request, Authentication auth);
 }

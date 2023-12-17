@@ -60,7 +60,7 @@ public class StandController {
         ViewerDto v = userService.defineViewer();
         model.addAttribute(VIEWER, v);
         if (v.getSpecialistId() == null) {
-            model.addAttribute("conversations", postService.getCustomerConversations(postId));
+            model.addAttribute("conversations", postService.getListOfApplicants(postId));
         }
         return "stand/request";
     }

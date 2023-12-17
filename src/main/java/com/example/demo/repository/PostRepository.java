@@ -10,13 +10,12 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query(nativeQuery = true, value = """
-            select *
-            from posts
-            where user_id in (select id
-                              from users
-                              where enabled = true);
-            """)
+@Query(nativeQuery = true, value = """
+            SELECT p.*
+            FROM posts p
+            INNER JOIN users u ON p.user_id = u.id
+            WHERE u.enabled = true AND u.id = :userId
+        """)
     List<Post> findAllByUserId(Long userId);
 
     @Query(nativeQuery = true, value = """

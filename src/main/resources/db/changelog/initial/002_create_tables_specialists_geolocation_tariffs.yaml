@@ -20,9 +20,6 @@ databaseChangeLog:
               - column:
                   name: company_name
                   type: varchar(255)
-              - column:
-                  name: tariff_id
-                  type: bigserial
         - createTable:
             tableName: geolocation
             columns:
@@ -59,12 +56,6 @@ databaseChangeLog:
               - column:
                   name: day_amount
                   type: int
-        - addForeignKeyConstraint:
-            baseTableName: specialists
-            baseColumnNames: tariff_id
-            constraintName: fk_tariff_id_specialists
-            referencedTableName: tariffs
-            referencedColumnNames: id
         - addForeignKeyConstraint:
             baseTableName: users
             baseColumnNames: geolocation_id

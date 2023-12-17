@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Профиль пользователья</title>
     <meta charset="UTF-8">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -36,9 +37,15 @@
             Данные о пользователе
         </div>
         <div class="card-body">
+<#if user.userName??>
             <h5 class="card-title">Имя: ${user.userName}</h5>
+</#if>
+<#if user.city??>
             <p class="card-text">City: ${user.city}</p>
+</#if>
+<#if user.role??>
             <p class="card-text">Роль: ${user.role}</p>
+</#if>
         </div>
     </div>
 
@@ -47,17 +54,24 @@
             <h2>Резюме</h2>
 
             <div class="row row-cols-1 row-cols-md-2">
-                <#list resumes as resume>
-                    <div class="col mb-4">
-                        <div class="card resume-card" id="cart">
-                            <div class="card-body">
-                                <h5 class="card-title">${resume.header}</h5>
-                                <p class="card-text">Description: ${resume.resumeDescription}</p>
-                                <p class="card-text">Date: ${resume.timeOfResume}</p>
-                            </div>
-                        </div>
-                    </div>
-                </#list>
+<#if resumes??>
+<#if resumes?has_content>
+    <#list resumes as resume>
+        <div class="col mb-4">
+            <div class="card resume-card" id="cart">
+                <div class="card-body">
+                    <h5 class="card-title">${resume.header}</h5>
+                    <p class="card-text">Description: ${resume.resumeDescription}</p>
+                    <p class="card-text">Date: ${resume.timeOfResume}</p>
+                </div>
+            </div>
+        </div>
+    </#list>
+<#else>
+<p>Нет созданных резюме</p>
+</#if>
+</#if>
+
             </div>
 
         </div>
@@ -67,17 +81,22 @@
         <div class="mt-5">
             <h2>Посты</h2>
             <div class="row row-cols-1 row-cols-md-2">
+                <#if posts??>
+                <#if posts?has_content>
                 <#list posts as post>
-                    <div class="col mb-4">
-                        <div class="card resume-card" id="cart">
-                            <div class="card-body">
-                                <h5 class="card-title">${post.title}</h5>
-                                <p class="card-text">Description: ${post.description}</p>
-                                <p class="card-text">Date: ${post.publishedDate}</p>
-                            </div>
+                <div class="col mb-4">
+                    <div class="card resume-card" id="cart">
+                        <div class="card-body">
+                            <h5 class="card-title">${post.title}</h5>
+                            <p class="card-text">Description: ${post.description}</p>
+                            <p class="card-text">Date: ${post.publishedDate}</p>
                         </div>
                     </div>
+                </div>
                 </#list>
+                </#if>
+                </#if>
+
             </div>
         </div>
     </#if>

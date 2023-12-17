@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.PhotoDto;
 import com.example.demo.dto.PortfolioDto;
 import com.example.demo.dto.PortfolioListDto;
 import com.example.demo.entities.Photo;
@@ -99,14 +98,16 @@ public class PortfolioService {
     }
 
     public List<PortfolioListDto> getPortfolioListBySpecialistId(Long specialistId) {
-        return portfolioRepository.findAllBySpecialist_Id(specialistId).stream()
+        List<PortfolioListDto> list = portfolioRepository.findAllBySpecialist_Id(specialistId).stream()
                 .map(e -> PortfolioListDto.builder()
                         .id(e.getId())
                         .timeOfPortfolio(e.getTimeOfPortfolio() != null ? Timestamp.valueOf(e.getTimeOfPortfolio()) : null)
                         .title(e.getTitle())
                         .coverPhotoLink(getCoverPhotoLink(e.getId()))
                         .build())
-                .collect(Collectors.toList());
+                .toList();
+
+        return list;
     }
 
 

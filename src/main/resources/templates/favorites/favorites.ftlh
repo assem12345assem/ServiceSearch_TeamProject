@@ -1,5 +1,6 @@
 <#import "../layout.ftlh" as main>
 <@main.layout>
+    <title>Избранные</title>
     <link rel="stylesheet" href="../../static/css/favourites.css">
     <div id="content" class="content">
         <h1 class="text-center" style="margin-top: 20px;">Избранные</h1>

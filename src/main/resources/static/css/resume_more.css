@@ -14,7 +14,7 @@ body {
     background-color: rgb(255, 255, 255);
     border-top-left-radius: 18px;
     border-top-right-radius: 18px;
-    box-shadow: 0px 5px 15px rgba(0.0, 0.0, 0.1, 0.4);
+    box-shadow: 0 5px 15px rgba(0.0, 0.0, 0.1, 0.4);
     overflow: hidden;
     margin: 0;
     padding: 0;
@@ -75,7 +75,7 @@ body {
 
 .resume p{
     color: #333333;
-    margin: 0rem;
+    margin: 0;
 }
 
 .resume-link {
@@ -88,7 +88,7 @@ body {
 
 .resume-name{
     font-size: 18px;
-    padding: 8px 0px;
+    padding: 8px 0;
     font-weight: bold;
     color: #7F88FF;
     margin-bottom: 6px;
@@ -134,7 +134,7 @@ body {
 }
 
 .resume-buttons{
-    padding: 10px 0px;
+    padding: 10px 0;
     display: flex;
     justify-content: center;
 }
@@ -147,7 +147,6 @@ body {
     border-radius: 15px;
     font-size: 10px;
     text-decoration: none;
-    padding: 15px;
 }
 
 
@@ -156,13 +155,12 @@ body {
     .tab-container {
         border-radius: 15px;
         overflow: hidden;
-        margin: 0;
         padding: 0;
         position: fixed;
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
-        margin-bottom: 30px;
+        margin: 0 0 30px;
         width: 100%;
         max-width: 600px;
     }
@@ -249,7 +247,7 @@ body {
 .header {
     background-color: #fffdfd;
     color: #fff;
-    padding: 10px 20px;
+    padding: 5px 20px;
     margin-bottom: 20px;
 }
 
@@ -296,4 +294,29 @@ body {
 
 .resume-phone {
     color: #333333;
+}
+
+.margin-left-div {
+    margin-left: 100px;
+    margin-top: 10px;
+}
+.social-icon {
+    font-size: 20px;
+    padding: 0 15px;
+}
+@media screen and (max-width: 799px){
+    .margin-left-div {
+        margin-left: 50px;
+    }
+    .social-icon {
+        padding: 0 7px;
+    }
+}
+@media screen and (max-width: 677px) {
+    .margin-left-div {
+        margin-left: 30px;
+    }
+    .social-icon {
+        padding: 0;
+    }
 }

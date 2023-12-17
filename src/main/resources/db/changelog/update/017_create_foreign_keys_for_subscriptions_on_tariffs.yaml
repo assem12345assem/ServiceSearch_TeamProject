@@ -23,15 +23,3 @@ databaseChangeLog:
             baseTableName: subscriptions_on_tariffs
             onDelete: CASCADE
             onUpdate: CASCADE
-  - changeSet:
-        id: add-foreign-key-tariff_id-for-table-users
-        author: master_Aleksandr
-        changes:
-            - addForeignKeyConstraint:
-                  baseColumnNames: tariff_id
-                  constraintName: fk_tariff_id-for-table-users
-                  referencedTableName: tariffs
-                  referencedColumnNames: ID
-                  baseTableName: users
-                  onDelete: CASCADE
-                  onUpdate: CASCADE

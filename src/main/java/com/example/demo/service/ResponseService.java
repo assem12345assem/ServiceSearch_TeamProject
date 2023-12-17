@@ -80,7 +80,7 @@ public class ResponseService {
         return dateTime.format(formatter);
     }
     public List<ResponseDto> getSpecialistConversation(Long postId, ViewerDto v) {
-        String conversationId = new StringBuilder().append(postId).append("-").append(v.getSpecialistId()).toString();
+        String conversationId = postId + "-" + v.getSpecialistId();
         List<Response> conversationList = responseRepository.findAllByConversationId(conversationId);
 
         var specialist = specialistRepository.findById(v.getSpecialistId());
@@ -156,9 +156,9 @@ public class ResponseService {
             for (Response r : responses) {
                 if (r.getConversationId().equalsIgnoreCase(s) && r.getSpecialist() == null) {
                     list.add(MessageBundleDto.builder()
-                            .id(new StringBuilder().append("response").append("-").append(s).toString())
+                            .id("response" + "-" + s)
                             .senderPhoto(r.getUser().getPhoto())
-                            .senderName(new StringBuilder().append("[стенд] ").append(r.getUser().getUserName()).toString())
+                            .senderName("[стенд] " + r.getUser().getUserName())
                             .lastMessageText(getLastMessageText(responses, s))
                             .lastMessageDateTime(getLastMessageDateTime(responses, s))
                             .build());
@@ -177,9 +177,9 @@ public class ResponseService {
                     var user = userRepository.findById(r.getSpecialist().getUser().getId());
                     if (user.isPresent()) {
                         list.add(MessageBundleDto.builder()
-                                .id(new StringBuilder().append("response").append("-").append(s).toString())
+                                .id("response" + "-" + s)
                                 .senderPhoto(user.get().getPhoto())
-                                .senderName(new StringBuilder().append("[стенд] ").append(specialistService.findSpecialistName(r.getSpecialist())).toString())
+                                .senderName("[стенд] " + specialistService.findSpecialistName(r.getSpecialist()))
                                 .lastMessageText(getLastMessageText(responses, s))
                                 .lastMessageDateTime(getLastMessageDateTime(responses, s))
                                 .build());

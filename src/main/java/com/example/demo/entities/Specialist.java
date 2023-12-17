@@ -31,10 +31,6 @@ public class Specialist {
     @OneToMany(mappedBy = "specialist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Portfolio> portfolios;
 
-    @ManyToOne
-    @JoinColumn(name = "tariff_id", referencedColumnName = "id")
-    private Tariff tariff;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "specialist")
     private List<Resume> resumes;
 

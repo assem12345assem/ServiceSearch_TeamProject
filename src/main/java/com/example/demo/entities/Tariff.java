@@ -3,8 +3,6 @@ package com.example.demo.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Builder
@@ -28,7 +26,4 @@ public class Tariff {
 
     @Column(name = "day_amount")
     private Integer dayAmount;
-
-    @OneToMany(mappedBy = "tariff", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Specialist> specialists;
 }

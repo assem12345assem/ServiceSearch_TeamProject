@@ -1,22 +1,24 @@
 <#import "../layout.ftlh" as main>
 <@main.layout>
-<style>
-    #send-button {
-        width: 100%;
-        height: 45px;
-        border: none;
-        border-radius: 5px;
-    }
-    .active{
-        background-color: #0080ff;
-        color: white;
-    }
+    <title>Восстановление пароля</title>
+    <style>
+        #send-button {
+            width: 100%;
+            height: 45px;
+            border: none;
+            border-radius: 5px;
+        }
 
-    .succes{
-        color: #25d366;
-    }
-</style>
-<body>
+        .active {
+            background-color: #0080ff;
+            color: white;
+        }
+
+        .succes {
+            color: #25d366;
+        }
+    </style>
+    <body>
 <section class="h-100">
     <div class="container h-100">
         <div class="row justify-content-sm-center h-100">
@@ -37,10 +39,11 @@
                             <div class="mb-3 mt-3">
                                 <input type="hidden" name="token" value="${token!}">
 
-                                <input id="password" type="password" class="form-control" name="password" placeholder="Введите ваш новый пароль" required autofocus/>
+                                <input id="password" type="password" class="form-control" name="password"
+                                       placeholder="Введите ваш новый пароль" required autofocus/>
                             </div>
 
-                            <button type="submit" class="active" id="send-button" >
+                            <button type="submit" class="active" id="send-button">
                                 Изменить пароль
                             </button>
                         </form>

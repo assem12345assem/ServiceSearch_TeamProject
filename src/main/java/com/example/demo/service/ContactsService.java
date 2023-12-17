@@ -83,23 +83,42 @@ public class ContactsService {
     }
 
     public List<String> getContactTypeList() {
-        List<String> list = ContactType.getValuesAsStrings();
+        return ContactType.getValuesAsStrings();
+    }
+
+    public List<ContactInfoSubmitDto> getBusinessCardResume(Long resumeId) {
+        var maybeResume = resumeRepository.findById(resumeId);
+        if (maybeResume.isPresent()) {
+            User user = maybeResume.get().getSpecialist().getUser();
+            return getBusinessCardByUser(user);
+        }
+        return Collections.emptyList();
+    }
+public List<ContactInfoSubmitDto> getBusinessCardSpecialist(Long specialistId) {
+        var maybeSpecialist = specialistRepository.findById(specialistId);
+        if(maybeSpecialist.isPresent()) {
+            User user = maybeSpecialist.get().getUser();
+            return getBusinessCardByUser(user);
+        }
+    return Collections.emptyList();
+}
+    public List<ContactInfoSubmitDto> getBusinessCardByUser(User user) {
+        List<Contacts> all = contactsRepository.findAllByUser(user);
+        List<ContactInfoSubmitDto> list = new ArrayList<>();
+        for (Contacts c : all) {
+            ContactType type = ContactType.getByEnumName(c.getContactType());
+            list.add(ContactInfoSubmitDto.builder()
+                    .contactType(type.getValue())
+                    .contactValue(c.getContactValue())
+                    .build());
+        }
         return list;
     }
 
     public List<ContactInfoSubmitDto> getBusinessCard() {
         User user = userService.getUserFromSecurityContextHolder();
         if (user != null) {
-            List<Contacts> all = contactsRepository.findAllByUser(user);
-            List<ContactInfoSubmitDto> list = new ArrayList<>();
-            for (Contacts c : all) {
-                ContactType type = ContactType.getByEnumName(c.getContactType());
-                list.add(ContactInfoSubmitDto.builder()
-                        .contactType(type.getValue())
-                        .contactValue(c.getContactValue())
-                        .build());
-            }
-            return list;
+            return getBusinessCardByUser(user);
         }
         return Collections.emptyList();
     }
@@ -126,7 +145,7 @@ public class ContactsService {
             List<Contacts> maybeContacts = contactsRepository.findAllByContactTypeAndContactValue(cT.toString(), contactValue);
             if (!maybeContacts.isEmpty()) {
                 for (Contacts c : maybeContacts) {
-                    if (c.getUser().getId() == user.getId()) {
+                    if (c.getUser().getId().equals(user.getId())) {
                         contactsRepository.delete(c);
                     }
                 }

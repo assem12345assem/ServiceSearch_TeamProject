@@ -12,7 +12,7 @@
         }
 
         .title:hover {
-            background-color: #f5f5f5;
+            color: mediumpurple;
         }
         .dark-theme .title:hover {
             color: black;
@@ -41,7 +41,7 @@
     color: white;
 }
 .dark-theme .string-item:hover {
-    background-color: whitesmoke;x
+    background-color: whitesmoke;
     color: black;
 }
         .string-list {
@@ -57,7 +57,7 @@
         .dark-theme .link-item {
             color: white;
         }
-        .dark-theme .link-item: hover{
+        .dark-theme .link-item:hover{
             color: black;
         }
         .title {

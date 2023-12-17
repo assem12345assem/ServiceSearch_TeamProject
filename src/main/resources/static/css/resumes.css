@@ -38,7 +38,7 @@
     font-size: 18px;
     padding: 8px 0;
     font-weight: bold;
-    color: #2552e7;
+    color: #7F88FF;
     margin-bottom: 6px;
 }
 .dark-theme .resume-name {
@@ -92,7 +92,7 @@
 
 .view-button{
     border: none;
-    background-color: #4b71ec;
+    background-color: #7F88FF;
     color: white;
     padding: 10px 15px;
     border-radius: 15px;
@@ -110,7 +110,7 @@
 }
 
 .favorite-button svg{
-    color: #2552e7;
+    color: #7F88FF;
 }
 
 .favorite-button svg:hover{

@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public enum ContactType {
     PHONE ("Телефон"),
     EMAIL ("Email"),
@@ -18,14 +19,12 @@ public enum ContactType {
     LINKEDIN ("LinkedIn"),
     OTHER ("Другое");
 
-    private String value;
+    private final String value;
 
     ContactType(String value) {
         this.value = value;
     }
-    public String getValue() {
-        return value;
-    }
+
     public static List<String> getValuesAsStrings() {
         List<String> valuesAsStrings = new ArrayList<>();
         for (ContactType contactType : ContactType.values()) {
@@ -43,7 +42,7 @@ public enum ContactType {
     }
     public static ContactType getByEnumName(String name) {
         for (ContactType contactType : values()) {
-            if (contactType.name().equals(name)) {
+            if (contactType.name().equalsIgnoreCase(name)) {
                 return contactType;
             }
         }

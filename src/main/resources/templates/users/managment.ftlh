@@ -59,11 +59,9 @@
             display: block;
             animation: fadeOut 4s ease-in-out;
         }
-
     </style>
 </head>
 <body>
-
 <div class="container">
     <div><a href="/logout">LOGOUT</a> </div>
     <h1 class="text-center mt-4 mb-5">Управление пользователями</h1>
@@ -82,12 +80,7 @@
         </div>
     </div>
 
-
 </div>
-
-
-
-
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         async function fetchAndDisplayUsers() {
@@ -176,12 +169,7 @@
         fetchAndDisplayUsers();
 
         setInterval(fetchAndDisplayUsers, 1000);
-
-
     });
-
 </script>
-
-
 </body>
 </html>

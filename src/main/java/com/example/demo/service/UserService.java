@@ -337,30 +337,6 @@ public class UserService {
             }
             repository.save(user);
         }
-
-
-/*
- я закомментировала эту часть кода, т.к. up'ать профиль - в нашей интерпретации - это про резюме
- */
-//        if (!updateCountsRepository.existsByUserId(user.getId())) {
-//            updateCountsRepository.save(UpdateCounts.builder()
-//                    .userId(user.getId())
-//                    .updateTime(new Timestamp(System.currentTimeMillis()))
-//                    .count(1)
-//                    .build());
-//            repository.updateUserInformationWithGeolocation(user.getId(), user.getUserName(), user.getPhoneNumber(),
-//                    user.getEmail(), geolocation);
-//
-//        } else {
-//            int currentCount = updateCountsRepository.findByUserId(user.getId()).
-//                    orElseThrow(() -> new NoSuchElementException("No such count!")).getCount();
-//            if (currentCount < 5) {
-//                currentCount++;
-//                updateCountsRepository.setCountForUser(user.getId(), currentCount);
-//                repository.updateUserInformationWithGeolocation(user.getId(), user.getUserName(), user.getPhoneNumber(),
-//                        user.getEmail(), geolocation);
-//            }
-//        }
     }
 
 

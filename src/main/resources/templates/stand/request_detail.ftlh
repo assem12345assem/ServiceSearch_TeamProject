@@ -1,5 +1,6 @@
 <#import '../layout.ftlh' as main>
 <@main.layout>
+    <title>Детали запроса</title>
     <div class="padding-div">
         <div class="category-header">
             <a href="javascript:history.go(-1);" class="back-button">

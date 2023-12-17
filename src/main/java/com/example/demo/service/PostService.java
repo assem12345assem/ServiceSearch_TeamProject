@@ -170,7 +170,7 @@ public class PostService {
         List<Notification> notifications = notificationRepository.findByNotificationTextContaining(searchWord);
         deleteUserNotification(user, notifications);
         notificationRepository.save(Notification.builder().user(user)
-                .notificationText(new StringBuilder().append(text).append(" ").append(searchWord).append(".").toString())
+                .notificationText(text + " " + searchWord + ".")
                 .notificationDate(LocalDateTime.now()).build());
     }
 
@@ -235,7 +235,32 @@ public class PostService {
 
         return responses;
     }
-
+public List<PostSpecialistsDto> getListOfApplicants(Long postId) {
+        //userId userName conversationId
+    List<Response> responses = getAllPostResponses(postId);
+    if (responses.isEmpty()) {
+        return Collections.emptyList();
+    }
+    responses.sort(Comparator.comparing(Response::getConversationId));
+    HashSet<String> uniqueConversationIds = new HashSet<>();
+    for (Response r : responses) {
+        uniqueConversationIds.add(r.getConversationId());
+    }
+    List<PostSpecialistsDto> result = new ArrayList<>();
+    for (String s : uniqueConversationIds) {
+        for (Response r: responses) {
+            if(s.equalsIgnoreCase(r.getConversationId())) {
+                result.add(PostSpecialistsDto.builder()
+                                .userId(r.getSpecialist().getUser().getId())
+                                .userName(specialistService.findSpecialistName(r.getSpecialist()))
+                                .conversationId(r.getConversationId())
+                        .build());
+                break;
+            }
+        }
+    }
+    return result;
+}
 
     public List<ConversationDto> getCustomerConversations(Long postId) {
         List<Response> responses = getAllPostResponses(postId);
@@ -300,7 +325,7 @@ public class PostService {
                 var newPost = postRepository.findByTitleAndWorkRequiredTime(dto.getTitle(), dto.getWorkRequiredTime());
                 if (newPost.isPresent()) {
                     String keyword = makeKeyword(newPost.get());
-                    String text = new StringBuilder().append("Создана новая запись на стенде в категории ").append(c.getCategoryName()).append(":").toString();
+                    String text = "Создана новая запись на стенде в категории " + c.getCategoryName() + ":";
                     List<SubscriptionStand> subscriptionsOnCategory = subscriptionStandRepository.findByCategory_Id(dto.getCategoryId());
                     for (SubscriptionStand s : subscriptionsOnCategory) {
                         sendNotification(text, s.getSpecialist().getUser(), keyword);
@@ -322,10 +347,10 @@ public class PostService {
         log.warn("Error error");
         List<Post> posts = postRepository.findAllByUserId(userId);
         if (posts.isEmpty()) {
-            log.warn("Error error {}", posts.toString());
+            log.warn("Error error {}", posts);
             return null;
         } else {
-            log.error("Error error {}", posts.toString());
+            log.error("Error error {}", posts);
             return posts.stream().map(this::makeDtoFromPost).toList();
         }
     }
@@ -335,8 +360,8 @@ public class PostService {
     }
 
     private String makeKeyword(Post post) {
-        return new StringBuilder().append(post.getTitle()).append(" (")
-                .append(post.getPublishedDate()).append(")").toString();
+        return post.getTitle() + " (" +
+                post.getPublishedDate() + ")";
     }
 
 
@@ -381,7 +406,7 @@ public class PostService {
         var post = postRepository.findById(postId);
         var currentUser = userService.getCurrentUser();
 
-        if (!post.isPresent()) {
+        if (post.isEmpty()) {
             throw new NoSuchElementException(String.format("Пост с таким id %s не найден", postId));
         }
 

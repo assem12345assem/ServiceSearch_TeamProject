@@ -1,5 +1,9 @@
 <#import "../layout.ftlh" as main>
 <@main.layout>
+    <title>Создать новое портфолио</title>
+    <a href="javascript:history.go(-1);" class="back-button">
+        <i class="fas fa-arrow-left"></i>Назад
+    </a>
     <div class="container">
     <h1 class="text-center">Создать портфолио</h1>
     <div class="bordered">
@@ -110,6 +114,10 @@
 
         .preview video {
             max-width: 100%;
+        }
+
+        .back-button{
+            padding: 15px;
         }
     </style>
 </@main.layout>

@@ -24,4 +24,8 @@ public interface ResumeController {
 
     @GetMapping("/{resumeId}")
     String getResumeById(@PathVariable Long resumeId, Model model);
+    @GetMapping("/up/{id}")
+    String upResume(@PathVariable Long id);
+    @GetMapping("/delete/{id}")
+    String delete(@PathVariable Long id);
 }

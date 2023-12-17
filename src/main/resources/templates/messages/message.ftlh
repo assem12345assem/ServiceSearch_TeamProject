@@ -6,7 +6,7 @@
         <button class="tablinks-2">Уведомления</button>
     </div>
 
-    <div id="Messages" class="tabcontent">
+    <div id="Messages" class="tabcontent margin-bottom-add">
         <h3 class="my-3">Сообщения</h3>
         <#if messages??>
             <#list messages as item>
@@ -32,7 +32,7 @@
 
     </div>
 
-    <div id="Notifications" class="tabcontent">
+    <div id="Notifications" class="tabcontent margin-bottom-add">
         <h3>Уведомления</h3>
         <#if notifications??>
             <#list notifications as item>
@@ -68,7 +68,7 @@
         }
         .dark-theme .msg {
             background-color: #333;
-            color: white
+            color: white;
             border: 1px solid #555;
 
         }
@@ -110,7 +110,7 @@
         .message-card {
             background-color: white;
             border-radius: 15px;
-            box-shadow: 0px 0px 10px rgba(0.0, 0.0, 0.2, 0.2);
+            box-shadow: 0 0 10px rgba(0.0, 0.0, 0.2, 0.2);
             margin: 10px;
             color: black;
             text-decoration: none;
@@ -191,6 +191,9 @@
 }
         .expanded {
             max-height: none;
+        }
+        .margin-bottom-add {
+            margin-bottom: 60px;
         }
     </style>
     <script>

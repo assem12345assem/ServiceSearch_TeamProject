@@ -1,5 +1,6 @@
 <#import "../layout.ftlh" as main>
 <@main.layout>
+    <title>Регистрация</title>
     <style>
         select {
             -webkit-appearance: none;

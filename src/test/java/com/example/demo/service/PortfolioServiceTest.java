@@ -51,16 +51,16 @@ public class PortfolioServiceTest {
     }
 @Test
 public void should_delete_portfolio() {
-        Long specialistId = 1L;
-        Long portfolioId = 1L;
+        long specialistId = 1L;
+        long portfolioId = 1L;
         when(portfolioRepository.findPortfolioByIdAndAndSpecialistId(portfolioId, specialistId)).thenReturn(true);
 portfolioService.deletePortfolio(specialistId, portfolioId);
 verify(portfolioRepository, times(1)).deleteById(portfolioId);
     }
     @Test
     public void should_return_error() {
-        Long specialistId = 1L;
-        Long portfolioId = 1L;
+        long specialistId = 1L;
+        long portfolioId = 1L;
         when(portfolioRepository.findPortfolioByIdAndAndSpecialistId(portfolioId, specialistId)).thenReturn(false);
         assertThrows(IllegalArgumentException.class, () -> portfolioService.deletePortfolio(specialistId, portfolioId));
         verify(portfolioRepository, never()).deleteById(anyLong());

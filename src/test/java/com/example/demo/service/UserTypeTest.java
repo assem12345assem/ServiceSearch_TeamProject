@@ -41,9 +41,7 @@ class UserTypeTest {
     @Test
     void insertNullReturnIllegalArgumentException() {
         String insert = null;
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.defineUserType(insert);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userService.defineUserType(insert));
     }
 
     @Test

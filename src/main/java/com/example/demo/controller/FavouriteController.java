@@ -2,12 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.FavoritesDto;
 import com.example.demo.dto.UserDto;
-import com.example.demo.entities.Favourite;
 import com.example.demo.service.FavouriteService;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
 import org.springframework.security.core.userdetails.User;

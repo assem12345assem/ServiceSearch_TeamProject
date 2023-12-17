@@ -2,16 +2,13 @@ package com.example.demo.dto;
 
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class ConversationDto {
+public class PostSpecialistsDto {
+    private Long userId;
+    private String userName;
     private String conversationId;
-    private String username; //specialist's username
-    private Long userId; //specialist's user id
-    private List<ResponseDto> messages;
 }

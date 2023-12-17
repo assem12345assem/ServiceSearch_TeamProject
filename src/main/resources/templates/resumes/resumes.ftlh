@@ -1,5 +1,6 @@
 <#import "../layout.ftlh" as main>
 <@main.layout>
+    <title>Резюме</title>
     <link rel="stylesheet" href="../../static/css/resumes.css">
     <link rel="stylesheet" href="../../static/css/layout.css">
     <div id="content" class="content">
@@ -14,9 +15,11 @@
                 <#list resumes as resume>
                     <div class="resume">
                         <a href="/resume/${resume.id}" class="resume-link">
-                            <p class="resume-name">Resume name</p>
-                            <p class="resume-experience">Опыт работы: 4 года</p>
-
+                            <#if resume.header?has_content>
+                                <p class="resume-name">${resume.header}</p>
+                                <#else>
+                                    <p class="resume-name">Без заголовок</p>
+                            </#if>
                             <p class="resume-date">Дата создания: ${resume.timeOfResume} </p>
                         </a>
                         <div class="resume-buttons">

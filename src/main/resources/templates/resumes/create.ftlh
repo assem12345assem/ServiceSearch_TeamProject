@@ -1,91 +1,81 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добавление резюме</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<style>
-    .content {
-        max-width: 600px;
-        margin: 0 auto;
-        margin-top: 100px;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-.dark-theme .content{
-    background-color: #333;
-    color: #fff;
-    box-shadow: 0 5px 15px rgba(247, 241, 241, 0.614);
-}
-    form {
-        display: flex;
-        flex-direction: column;
-    }
+<#import "../layout.ftlh" as main>
+<@main.layout>
+    <title>Создать новое резюме</title>
+    <style>
+        .content {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20%;
+        }
 
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-    }
+        .dark-theme .content {
+            background-color: #333;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(247, 241, 241, 0.614);
+        }
 
-    input[type="text"],
-    input[type="number"],
-    select,
-    textarea {
-        padding: 10px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-    }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
 
-    input[type="submit"] {
-        background-color: #2552e7;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 18px;
-    }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
 
-    input[type="submit"]:hover {
-        background-color: #1c3c80;
-    }
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
-    .buttons {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-    }
+        input[type="submit"] {
+            background-color: #7F88FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
 
-    .cancel {
-        background-color: #2552e7;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 18px;
-        text-decoration: none;
-        margin-right: 20px;
-    }
-</style>
-<body>
+        input[type="submit"]:hover {
+            background-color: #636df6;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .back-button {
+            text-decoration: none;
+            color: #7F88FF;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            margin: 15px;
+        }
+    </style>
+<a href="javascript:history.go(-1);" class="back-button">
+    <i class="fas fa-arrow-left"></i>Назад
+</a>
 <div class="content">
     <form action="/resume/create" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
         <label for="resumeTitle">Заголовок резюме:</label>
         <input type="text" id="resumeTitle" name="header" required>
-
-        <label for="resumeExperience">Опыт работы (в годах):</label>
-        <input type="date" id="resumeExperience" name="resumeExperience">
-        <label for="resumeExperience">Опыт работы (в годах):</label>
-        <input type="date" id="resumeExperience" name="resumeExperience">
 
         <label for="resumeCategory">Категория резюме:</label>
         <select id="resumeCategory" name="categoryId" required>
@@ -101,10 +91,8 @@
                   rows="4" required></textarea>
 
         <div class="buttons">
-            <a href="javascript:history.go(-1);" class="cancel">Отмена</a>
             <input type="submit" value="Сохранить">
         </div>
     </form>
 </div>
-</body>
-</html>
+</@main.layout>

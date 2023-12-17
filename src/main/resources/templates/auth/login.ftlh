@@ -1,5 +1,6 @@
 <#import "../layout.ftlh" as main>
 <@main.layout>
+    <title>Войти</title>
     <style>
         flag-icon {
             width: 20px;
