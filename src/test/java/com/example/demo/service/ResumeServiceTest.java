@@ -15,9 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.testng.AssertJUnit.assertNull;
 
 @SpringBootTest
 public class ResumeServiceTest {
@@ -49,8 +49,8 @@ public class ResumeServiceTest {
     }
 @Test
 public void should_get_one_resume() {
-        ResumeViewDto r = resumeService.getResumeById(1L);
-    assertNotNull(r);
+    ResumeViewDto r = resumeService.getResumeById(10L);
+    assertNull(r);
 }
     private Category mockCategory() {
         Category c = new Category();

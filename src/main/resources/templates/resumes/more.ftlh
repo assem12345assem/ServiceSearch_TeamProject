@@ -63,7 +63,7 @@
                     </#if>
                 <#else>
                     <#if resume.phoneNumber??>
-                        <i class="fas fa-phone"></i> Телефон: <a href="tel+${resume.phoneNumber}">${resume.phoneNumber}</a>
+                        <i class="fas fa-phone"></i> Телефон: <a href="/tel+${resume.phoneNumber}">${resume.phoneNumber}</a>
                     <#else>
                         <i class="fas fa-phone"></i> Телефон: <p class="no-content">телефон номер не указан</p>
                     </#if>
@@ -72,7 +72,7 @@
             <div class="resume-buttons">
                 <a href="#" class="view-button">Написать</a>
                 <#if resume.phoneNumber??>
-                    <a href="tel+${resume.phoneNumber}" class="view-button">Позвонить</a>
+                    <a href="/tel+${resume.phoneNumber}" class="view-button">Позвонить</a>
                 <#else>
                     <a class="view-button disabled">Позвонить</a>
                 </#if>

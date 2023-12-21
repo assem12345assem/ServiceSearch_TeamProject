@@ -98,6 +98,11 @@
             text-align: right;
             text-decoration: none;
         }
+
+        .remember-me{
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
     <body>
     <section class="h-100">
@@ -132,7 +137,11 @@
                                 <button type="submit" class=" active" id="send-button" >
                                     Войти
                                 </button>
-                                <div class="mt-2">
+                                <div class="mt-4 remember-me">
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
+                                        <label class="form-check-label" for="remember-me" style="color: #333333">Remember me</label>
+                                    </div>
                                     <a href="/auth/forgot_password"  class="forgot-password">Забыли пароль?</a>
                                 </div>
                             </form>

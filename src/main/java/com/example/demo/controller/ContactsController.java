@@ -16,7 +16,7 @@ public class ContactsController {
     @GetMapping
     public String getAll(Model model) {
         model.addAttribute("contacts", contactsService.getAll());
-        model.addAttribute("searchResults", contactsService.getSearchResultItems());
+//        model.addAttribute("searchResults", contactsService.getSearchResultItems());
         return "specialist/contacts";
     }
     @GetMapping(value = "/contact-item/delete")

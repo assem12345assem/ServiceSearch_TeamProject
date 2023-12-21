@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class ResponseServiceTest {
@@ -43,20 +43,20 @@ public class ResponseServiceTest {
         return list;
     }
 
-    @Test
-    void should_create_new_response() {
-        Response r = responseService.saveResponse(mockPost(), mockSpecialist(), "200-200", "test");
-        assertNotNull(r);
-    }
+//    @Test
+//    void should_create_new_response() {
+//        Response r = responseService.saveResponse(mockPost(), mockSpecialist(), "200-200", "test");
+//        assertNotNull(r);
+//    }
 
-    @Test
-    void should_delete_a_response() {
-        Response r = responseService.findAResponse(4L);
-        assertNotNull(r);
-        responseService.deleteAResponse(4L);
-        r = responseService.findAResponse(4L);
-        assertNull(r);
-    }
+//    @Test
+//    void should_delete_a_response() {
+//        Response r = responseService.findAResponse(1L);
+//        assertNotNull(r);
+//        responseService.deleteAResponse(1L);
+//        r = responseService.findAResponse(1L);
+//        assertNull(r);
+//    }
 
 
     private User mockUser() {

@@ -4,6 +4,7 @@ import com.example.demo.entities.CustomOAuth2User;
 import com.example.demo.service.AuthUserDetailsService;
 import com.example.demo.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -56,7 +57,8 @@ public class SecurityConfig {
                         .requestMatchers("/portfolio/delete/**").hasAuthority(SPECIALIST)
                         .requestMatchers("/tariff/**").hasAuthority(SPECIALIST)
                         .requestMatchers("/portfolio/new").hasAuthority(SPECIALIST)
-                        .requestMatchers("/api/rating/**").hasAuthority(CUSTOMER)
+                        .requestMatchers("/api/rating/new/**").hasAnyAuthority(SPECIALIST, CUSTOMER)
+                        .requestMatchers("/api/rating/delete/**").hasAuthority(CUSTOMER)
                         .requestMatchers("/rating/**").hasAnyAuthority(SPECIALIST, CUSTOMER)
                         .requestMatchers("/specialist/**").hasAnyAuthority(SPECIALIST, CUSTOMER)
                         .requestMatchers("/stand").hasAnyAuthority(SPECIALIST, CUSTOMER)
@@ -81,12 +83,13 @@ public class SecurityConfig {
                         .requestMatchers("/favourites/**").hasAnyAuthority(SPECIALIST, CUSTOMER)
                         .requestMatchers("/contact/**").hasAnyAuthority(SPECIALIST, CUSTOMER)
                         .requestMatchers("/super/**").hasAuthority(ADMIN)
-                       .requestMatchers("api/super/**").hasAuthority(ADMIN)
+                        .requestMatchers("api/super/**").hasAuthority(ADMIN)
                         .anyRequest().permitAll()
                 )
                 .rememberMe(customizer -> customizer
                         .key("secret")
-                        .tokenValiditySeconds(60))
+                        .tokenValiditySeconds(60 * 60 * 48)
+                        .rememberMeParameter("remember-me"))
                 .oauth2Login(oauth -> oauth
                         .loginPage(LOGIN)
                         .userInfoEndpoint(config -> config

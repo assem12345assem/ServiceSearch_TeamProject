@@ -104,7 +104,7 @@
         <div class="container h-100">
             <div class="row justify-content-sm-center h-100">
                 <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-                    <div class="card shadow-lg" style="border-radius: 15px; margin-top: 70px;">
+                    <div class="card shadow-lg mb-5" style="border-radius: 15px; margin-top: 70px;">
                         <div class="card-body p-5">
                             <h1 class="fs-4 card-title fw-bold mb-4">Регистрация</h1>
                             <form method="post" class="needs-validation" action="/auth/register">

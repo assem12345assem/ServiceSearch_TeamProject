@@ -16,9 +16,6 @@ $(document).ready(function () {
         $("#portfolio-content").show();
     });
 });
-document.getElementById("openModal").addEventListener("click", function () {
-    openModal();
-});
 
 const xCloseButton = document.getElementById("close-button").addEventListener("click", closeModal)
 

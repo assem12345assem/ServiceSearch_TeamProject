@@ -18,6 +18,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -26,6 +27,7 @@ public class SpecialistService {
     private final SpecialistRepository repository;
     private final SpecialistsAuthoritiesRepository specialistsAuthoritiesRepository;
     private final AuthorityRepository authorityRepository;
+    private final SpecialistRepository specialistRepository;
 
     public List<SpecialistDto> searchSpecialistByName(String name) {
         List<Specialist> specialists = repository.searchSpecialistByCompanyNameContainingIgnoreCase(name);
@@ -48,8 +50,18 @@ public class SpecialistService {
         Authority limitedAuthority = authorityRepository.findByAuthorityName("LIMITED");
         LocalDateTime dateTime = LocalDateTime.of(3023, Month.DECEMBER, 31, 0, 0);
 
-        SpecialistsAuthorities sa = specialistsAuthoritiesRepository.findBySpecialistId(s.getId())
-                .orElseThrow(() -> new NoSuchElementException("Authority not found"));
+        Optional<SpecialistsAuthorities> specAuth = specialistsAuthoritiesRepository.findBySpecialistId(s.getId());
+        if (specAuth.isEmpty()) {
+            specialistsAuthoritiesRepository.save(SpecialistsAuthorities.builder()
+                    .specialist(specialistRepository.findById(s.getId())
+                            .orElseThrow(() -> new NoSuchElementException("Specialist not found")))
+                    .authority(authorityRepository.findByAuthorityName("FULL"))
+                    .dateStart(LocalDateTime.now())
+                    .dateEnd(LocalDateTime.now().plusDays(30))
+                    .build());
+        }
+
+        SpecialistsAuthorities sa = specialistsAuthoritiesRepository.findBySpecialistId(s.getId()).orElseThrow(() -> new NoSuchElementException("Authority not found"));
         if (sa.getAuthority().getAuthorityName().equalsIgnoreCase("FULL")) {
             if (sa.getDateEnd().isAfter(LocalDateTime.now())) {
                 return true;

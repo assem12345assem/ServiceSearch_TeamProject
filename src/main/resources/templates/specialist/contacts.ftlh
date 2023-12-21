@@ -95,18 +95,18 @@
             color: #fff;
         }
     </style>
-    <div class="p-5">
-        <div class="searchBox">
-            <input type="text" class="searchInput" id="search" placeholder="Поиск...">
-            <#--            <button class="search-button"><i class="fas fa-search"></i></button>-->
-        </div>
-        <div>
-            <#if searchResults??>
-                <#list searchResults as item>
-                    <a href="/specialist/${item.id}" class="list-names"><#if (item.name)??>${item.name}</#if></a>
-                </#list>
-            </#if>
-        </div>
+<#--    <div class="p-5">-->
+<#--        <div class="searchBox">-->
+<#--            <input type="text" class="searchInput" id="search" placeholder="Поиск...">-->
+<#--            &lt;#&ndash;            <button class="search-button"><i class="fas fa-search"></i></button>&ndash;&gt;-->
+<#--        </div>-->
+<#--        <div>-->
+<#--            <#if searchResults??>-->
+<#--                <#list searchResults as item>-->
+<#--                    <a href="/specialist/${item.id}" class="list-names"><#if (item.name)??>${item.name}</#if></a>-->
+<#--                </#list>-->
+<#--            </#if>-->
+<#--        </div>-->
         <div class="string-list">
             <#if contacts??>
                 <#list contacts as item>

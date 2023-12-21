@@ -56,6 +56,7 @@ public class ResumeService {
         if (checkNotAppearResumeInCategory(resumeDto)) {
             resumeRepository.save(Resume.builder()
                     .specialist(specialist)
+                            .name(resumeDto.getHeader())
                     .timeOfResume(Timestamp.valueOf(LocalDateTime.now()))
                     .resumeDescription(resumeDto.getResumeDescription())
                     .category(categoryRepository.findById(resumeDto.getCategoryId())

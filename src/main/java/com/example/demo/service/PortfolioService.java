@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.PhotoDto;
 import com.example.demo.dto.PortfolioDto;
 import com.example.demo.dto.PortfolioListDto;
 import com.example.demo.entities.Photo;
@@ -110,6 +111,24 @@ public class PortfolioService {
         return list;
     }
 
+    public PortfolioDto getPortfolioById(Long id) {
+        Portfolio portfolio = portfolioRepository.findPortfolioById(id).orElseThrow(() -> new NoSuchElementException("Portfolio not found"));
+        PortfolioDto dto = PortfolioDto.builder()
+                .id(portfolio.getId())
+                .title(portfolio.getTitle())
+                .specialistId(portfolio.getSpecialist().getId())
+                .photos(portfolio.getPhotos()
+                        .stream()
+                        .map(photo -> PhotoDto.builder()
+                                .photoLink(photo.getPhotoLink())
+                                .build()
+                        )
+                        .collect(Collectors.toList())
+                )
+                .timeOfPortfolio(Timestamp.valueOf(portfolio.getTimeOfPortfolio()))
+                .build();
+        return dto;
+    }
 
     private String getCoverPhotoLink(Long portfolioId) {
         Optional<Photo> coverPhoto = photosRepository.findAllByPortfolio_Id(portfolioId)

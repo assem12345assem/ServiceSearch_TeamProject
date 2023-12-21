@@ -25,4 +25,7 @@ public interface ProfileController {
 
     @GetMapping("/profile/add_contacts")
     String addContacts(Model model);
+
+    @GetMapping("/profile/details")
+    String accountDetails(Model model);
 }

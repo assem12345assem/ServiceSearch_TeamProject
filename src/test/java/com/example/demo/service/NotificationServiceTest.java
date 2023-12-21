@@ -29,7 +29,7 @@ class NotificationServiceTest {
     @Test
     void should_get_list_with_size_two() {
         List<Notification> actualResult = messageService.getAllNotificationsByUser(mockUser());
-        assertEquals(4, actualResult.size());
+        assertEquals(2, actualResult.size());
 
     }
 

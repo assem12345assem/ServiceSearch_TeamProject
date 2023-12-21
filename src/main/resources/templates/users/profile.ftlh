@@ -5,7 +5,7 @@
 
     <title>Личный кабинет</title>
     <div id="content" class="content">
-        <a href="#" class="settings-link" id="openModal">
+        <a href="/profile/details" class="settings-link" id="">
             <i class="fas fa-cog"></i>
         </a>
 
@@ -32,49 +32,9 @@
                 <#if user.userName?has_content>
                     <p class="username text-center">${user.userName}</p>
                 </#if>
-                <#if businessCard??>
-                    <#if businessCard?has_content>
-                        <#list businessCard as it>
-                            <p class="margin-left-div">
-                                <#if it.contactType == "Telegram">
-                                    <span class="social-icon"><i class="fa-brands fa-telegram"
-                                                                 style="color: #0056d6;"></i></span>
-                                <#elseif it.contactType == "Instagram">
-                                    <span class="social-icon"><i class="fa-brands fa-instagram"
-                                                                 style="color: #ff40ff;"></i></span>
-                                <#elseif it.contactType == "WhatsApp">
-                                    <span class="social-icon"><i class="fa-brands fa-whatsapp"
-                                                                 style="color: #669c35;"></i></span>
-                                <#elseif it.contactType == "Facebook">
-                                    <span class="social-icon"><i class="fa-brands fa-facebook"
-                                                                 style="color: #0042aa;"></i></span>
-                                <#elseif it.contactType == "TikTok">
-                                    <span class="social-icon"><i class="fa-brands fa-tiktok"></i></span>
-                                <#elseif it.contactType == "LinkedIn">
-                                    <span class="social-icon"><i class="fa-brands fa-linkedin"
-                                                                 style="color: #0056d6;"></i></span>
-                                <#elseif it.contactType == "Email">
-                                    <span class="social-icon"><i class="fa-solid fa-envelope"></i></span>
-                                <#elseif it.contactType == "Телефон">
-                                    <span class="social-icon"><i class="fa-solid fa-phone"></i></span>
-                                <#elseif it.contactType == "ВКонтакте">
-                                    <span class="social-icon"><i class="fa-brands fa-vk"
-                                                                 style="color: #0042aa;"></i></span>
-                                <#elseif it.contactType == "Одноклассники">
-                                    <span class="social-icon"><i class="fa-brands fa-odnoklassniki"
-                                                                 style="color: #d29d00;"></i></span>
-                                <#elseif it.contactType == "Другое">
-                                    <span class="social-icon">Др.</span>
-                                </#if>
-                                : ${it.contactValue}</p>
-                        </#list>
-                    </#if>
-                <#else>
-                    <#if user.phoneNumber?has_content>
-                        <p>${user.phoneNumber}</p>
-                    </#if>
+                <#if user.phoneNumber?has_content>
+                    <p>${user.phoneNumber}</p>
                 </#if>
-
                 <#if rating?has_content>
                     <div class="rating text-center">
                         <span class="star fas fa-star"></span>
@@ -95,10 +55,10 @@
                 </div>
                 <div class="tab-content" id="resume-content">
                     <div class="resume-list">
-                        <div class="resume create-resume">
+                        <div class="create-resume">
                             <a href="/resume/create" class="add-resume-link">
-                                <p class="add-resume-text">Добавить резюме</p>
-                                <i class="fas fa-plus"></i>
+                                <p class="add-resume-text col">Добавить резюме</p>
+                                <i class="fas fa-plus mt-1"></i>
                             </a>
                         </div>
                         <#if resumes?has_content>
@@ -122,7 +82,7 @@
                                     </a>
                                     <div class="buttons-resume">
                                         <a href="/resume/up/${resume.id}">
-                                            <button class="btn resume-button">Ап</button>
+                                            <button class="btn resume-button">Поднять</button>
                                         </a>
                                         <a href="/resume/delete/${resume.id}">
                                             <button class="btn resume-button">Удалить</button>
@@ -137,10 +97,10 @@
                 </div>
                 <div class="tab-content" id="portfolio-content">
                     <div class="portfolio-list">
-                        <div class="resume create-resume">
+                        <div class="create-resume">
                             <a href="/portfolio/new" class="add-resume-link">
                                 <p class="add-resume-text">Добавить портфолио</p>
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-plus mt-1"></i>
                             </a>
                         </div>
                         <#if portfolios?has_content>
@@ -153,14 +113,14 @@
                                             <img src="/static/noPhoto.png" alt class="portfolio-img">
                                         </#if>
                                     </div>
-                                    <div class="portfolio-details">
+                                    <a href="/portfolio/${portfolio.id}" class="portfolio-details">
                                         <#if portfolio.title?has_content>
                                             <p class="resume-name">${portfolio.title}</p>
                                         </#if>
                                         <#if portfolio.timeOfPortfolio?has_content>
                                             <p>Дата публикации ${portfolio.timeOfPortfolio}</p>
                                         </#if>
-                                    </div>
+                                    </a>
                                 </div>
                             </#list>
                         <#else>
@@ -171,7 +131,7 @@
             <#elseif user.role = "ROLE_CUSTOMER">
                 <div class="tab-content" id="resume-content">
                     <div class="resume-list">
-                        <div class="resume create-resume">
+                        <div class="create-resume">
                             <a href="/stand/new" class="add-resume-link">
                                 <p class="add-resume-text">Новый запрос</p>
                                 <i class="fas fa-plus"></i>
@@ -179,7 +139,7 @@
                         </div>
                         <#if stands?has_content>
                             <#list stands as stand>
-                                <div class="resume">
+                                <div class="stand-post">
                                     <div class="post">
                                         <div class="post-menu">
                                             <button type="button" class="menu-button" data-bs-toggle="dropdown"
@@ -244,87 +204,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/static/js/profile.js"></script>
     <script>
-        function getThemeFromServer() {
-            const storedTheme = localStorage.getItem('theme');
-            if (storedTheme !== null) {
-                applyThemeToPage(storedTheme);
-                themeToggle.value = storedTheme;
-            } else {
-                const url = '/api/get-theme';
-                fetch(url)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        localStorage.setItem('theme', data);
-                        applyThemeToPage(data);
-                    })
-                    .catch(error => {
-                        console.error('Error getting theme from server:', error);
-                    });
-            }
-        }
-
-        function applyThemeToPage(theme) {
-
-            const body = document.body;
-            const otherElements = document.querySelectorAll('.other-elements');
-
-            body.classList.toggle('dark-theme', theme == 1);
-            otherElements.forEach(element => {
-                element.classList.toggle('dark-theme', theme == 1);
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            getThemeFromServer();
-        });
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-
-        themeToggle.addEventListener('input', function () {
-            const theme = parseInt(themeToggle.value);
-            body.classList.toggle('dark-theme', theme === 1);
-            localStorage.setItem('theme', theme);
-            const otherElements = document.querySelectorAll('.other-elements');
-            otherElements.forEach(element => {
-                element.classList.toggle('dark-theme', theme === 1);
-            });
-            saveThemePreference(theme);
-        });
-
-        function saveThemePreference(theme) {
-            const url = '/api/save-theme-preference';
-            const csrfToken = document.querySelector('input[name="_csrf"]').value;
-
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify({
-                    theme
-                }),
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Theme preference saved:', data);
-                })
-                .catch(error => {
-                    console.error('Error saving theme preference:', error);
-                });
-        }
-
-
         document.addEventListener("DOMContentLoaded", function () {
             const tabButton = document.getElementById("stand-request-tab");
             const tabContent = document.querySelector('.stand-requests');

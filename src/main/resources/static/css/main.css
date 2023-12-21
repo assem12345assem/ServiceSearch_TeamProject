@@ -4,8 +4,9 @@
     margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-around;
     padding-top: 10px;
+    margin-bottom: 30px;
 }
 
 .category-card {
@@ -19,6 +20,8 @@
     display: flex;
     height: 90px;
     flex-direction: column;
+    hyphens: auto;
+    padding: 8px;
     justify-content: center;
     text-decoration: none;
 }

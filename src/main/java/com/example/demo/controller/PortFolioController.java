@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,9 +35,8 @@ public class PortFolioController {
     }
 
     @GetMapping("/{portfolioId}")
-    public String getPortfolioById(@PathVariable Long portfolioId) {
-        return "";
+    public String getPortfolioById(@PathVariable Long portfolioId, Model model) {
+        model.addAttribute("portfolio", portfolioService.getPortfolioById(portfolioId));
+        return "portfolio/view";
     }
-
-
 }

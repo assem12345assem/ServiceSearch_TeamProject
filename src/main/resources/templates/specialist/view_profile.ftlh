@@ -2,8 +2,188 @@
 <@main.layout>
     <link rel="stylesheet" href="/static/css/profileorigin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <meta name="_csrf_token" content="${_csrf.token}"/>
     <title>Профиль пользователя</title>
+    <style>
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .full-stars {
+            text-align: center;
+        }
+
+        .full-stars .rating-group {
+            display: inline-flex;
+        }
+
+        .full-stars input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .full-stars label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .full-stars label svg {
+            margin: 2px;
+            height: 40px;
+            width: 40px;
+            fill: #ffb300;
+            transition: fill 0.3s;
+        }
+
+        .full-stars input:checked ~ label svg {
+            fill: #BFE2FF;
+        }
+
+        .full-stars .rating-group:hover label svg {
+            fill: #ffb300;
+        }
+
+        .full-stars .rating-group input:hover ~ label svg {
+            fill: #BFE2FF;
+        }
+
+        #side-menu input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #submit-button:hover {
+            background-color: #45a049;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #555;
+        }
+
+        .close-button:hover {
+            color: #000;
+        }
+
+
+        .notification {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            z-index: 1000;
+            margin: 20px;
+            border-radius: 11px;
+            display: none;
+        }
+
+        .notification.show {
+            display: block;
+            animation: fadeOut 4s ease-in-out;
+        }
+
+        .notificationError {
+            background-color: red;
+            color: white;
+        }
+
+        .leave-review-btn {
+            position: fixed;
+            bottom: 70px;
+            left: 50%;
+            width: 200px;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .share-button {
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 8px 16px;
+        }
+
+        .facebook {
+            background-color: #3b5998;
+        }
+
+        .twitter {
+            background-color: #1da1f2;
+        }
+
+        .linkedin {
+            background-color: #0077b5;
+        }
+
+        .pinterest {
+            background-color: #bd081c;
+        }
+
+        .reddit {
+            background-color: #ff4500;
+        }
+
+        .whatsapp {
+            background-color: #25d366;
+        }
+
+        .social-tabs {
+            margin: 30px 40px 0 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 15px;
+        }
+
+        .add-to-favourites{
+            display: flex;
+            justify-content: center;
+            margin: 0 20px;
+            width: 300px;
+        }
+    </style>
     <div id="content" class="content">
 
         <div class="square">
@@ -94,12 +274,12 @@
                 </#if>
             </div>
             <#if user.role = "ROLE_SPECIALIST">
-                <button class="leave-review-btn" id="openModalRating" onclick="openModalRating()">Оставить отзыв</button>
+                <button class="leave-review-btn" id="openModalRating">Оставить отзыв</button>
             </#if>
         </div>
         <div>
             <#if user.role = "ROLE_SPECIALIST">
-                <div class="tabs">
+                <div class="social-tabs">
                     <div class="share-buttons">
                         <button class="share-button facebook">
                             <i class="fab fa-facebook-f"></i>
@@ -116,11 +296,12 @@
                         <button class="share-button whatsapp">
                             <i class="fab fa-whatsapp"></i>
                         </button>
-                        <#if user.role = "ROLE_SPECIALIST">
-                            <a href="/favourites/add/${specialistId}" type="button" class="btn btn-outline-success">Добавить в избранное</a>
-                        </#if>
                     </div>
                 </div>
+                <#if user.role = "ROLE_SPECIALIST">
+                    <a href="/favourites/add/${specialistId}" type="button" class="btn btn-outline-success add-to-favourites">Добавить в
+                        избранное</a>
+                </#if>
                 <div class="tabs">
                     <button class="tab-item" id="resume-tab">Резюме</button>
                     <button class="tab-item" id="portfolio-tab">Портфолио</button>
@@ -209,6 +390,82 @@
                 </div>
             </#if>
         </div>
+    </div>
+    <div id="modalRating" class="modal">
+        <div class="modal-content">
+            <div id="side-menu" class="side-menu">
+                <div class="full-stars">
+                    <div class="rating-group">
+                        <input type="hidden" id="specialistId" value="${specialistId}">
+                        <!-- по умолчанию 0 -->
+                        <input name="fst" value="0" type="radio"
+                               disabled checked/>
+
+                        <!-- рейтинг 1 -->
+                        <label for="fst-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 576 512">
+                                <path
+                                        d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/>
+                            </svg>
+                        </label>
+                        <input name="fst" id="fst-1" value="1"
+                               type="radio"/>
+
+                        <!-- рейтинг 2 -->
+                        <label for="fst-2">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 576 512">
+                                <path
+                                        d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/>
+                            </svg>
+                        </label>
+                        <input name="fst" id="fst-2" value="2"
+                               type="radio"/>
+
+                        <!-- рейтинг 3 -->
+                        <label for="fst-3">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 576 512">
+                                <path
+                                        d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/>
+                            </svg>
+                        </label>
+                        <input name="fst" id="fst-3" value="3"
+                               type="radio"/>
+
+                        <!-- рейтинг 4 -->
+                        <label for="fst-4">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 576 512">
+                                <path
+                                        d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/>
+                            </svg>
+                        </label>
+                        <input name="fst" id="fst-4" value="4"
+                               type="radio"/>
+
+                        <!-- рейтинг 5 -->
+                        <label for="fst-5">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 576 512">
+                                <path
+                                        d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/>
+                            </svg>
+                        </label>
+                        <input name="fst" id="fst-5" value="5"
+                               type="radio"/>
+                    </div>
+                </div>
+                <input type="text" placeholder="Оставьте отзыв"
+                       id="review-input">
+                <button id="submit-button" onclick="submitReview()">Отправить</button>
+                <div class="close-button" onclick="closeModalRating()">×</div>
+            </div>
+        </div>
+    </div>
+    <div class="notification" id="notification">
+
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/static/js/profileForAnother.js"></script>

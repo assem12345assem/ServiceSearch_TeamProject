@@ -2,6 +2,7 @@ package com.example.demo.controller.impl;
 
 import com.example.demo.controller.ProfileController;
 import com.example.demo.dto.UserDto;
+import com.example.demo.entities.Specialist;
 import com.example.demo.entities.User;
 import com.example.demo.repository.SpecialistRepository;
 import com.example.demo.repository.UserRepository;
@@ -39,16 +40,10 @@ public class ProfileControllerImpl implements ProfileController {
 
         if (currentUser.getRole().equalsIgnoreCase("ROLE_SPECIALIST")) {
             Long specialistId = specialistRepository.findByUser_Id(currentUser.getId()).orElseThrow(() -> new NoSuchElementException("Specialist not found")).getId();
-            String qrCodeText = "http://localhost:8089/profile" + specialistId;
-
-            ByteArrayOutputStream qrCodeStream = QRCode.from(qrCodeText).stream();
-            byte[] qrCodeBytes = qrCodeStream.toByteArray();
-            String qrCodeBase64 = Base64.getEncoder().encodeToString(qrCodeBytes);
 
             model.addAttribute("resumes", resumeService.getResumesByUserId(currentUser.getId()));
             model.addAttribute("portfolios", portfolioService.getPortfolioListBySpecialistId(specialistId));
             model.addAttribute("rating", ratingService.getSpecialistRatingById(specialistId));
-            model.addAttribute("qrCodeBase64", qrCodeBase64);
         }
 
         if (currentUser.getRole().equalsIgnoreCase("ROLE_CUSTOMER")) {
@@ -56,7 +51,6 @@ public class ProfileControllerImpl implements ProfileController {
         }
 
         model.addAttribute("user", currentUser);
-        model.addAttribute("businessCard", contactsService.getBusinessCard());
 
         return "users/profile";
     }
@@ -103,6 +97,30 @@ public class ProfileControllerImpl implements ProfileController {
         model.addAttribute("contactTypes", contactsService.getContactTypeList());
         model.addAttribute("businessCard", contactsService.getBusinessCard());
         return "users/add_contacts";
+    }
+
+    @Override
+    public String accountDetails(Model model) {
+        User user = userService.getCurrentUser().orElseThrow(() -> new NoSuchElementException("User not found"));
+        var specialist = specialistRepository.findByUser_Id(user.getId());
+
+        if (specialist.isPresent()){
+            String qrCodeText = "http://localhost:8089/profile" + specialist.get().getId();
+            ByteArrayOutputStream qrCodeStream = QRCode.from(qrCodeText).stream();
+
+            byte[] qrCodeBytes = qrCodeStream.toByteArray();
+            String qrCodeBase64 = Base64.getEncoder().encodeToString(qrCodeBytes);
+            boolean isUserSpecialist = true;
+
+            model.addAttribute("qrCodeBase64", qrCodeBase64);
+            model.addAttribute("isUserSpecialist", isUserSpecialist);
+            model.addAttribute("specialistId", specialist.get().getId());
+        }
+
+        model.addAttribute("businessCard", contactsService.getBusinessCard());
+        model.addAttribute("details", userService.getAccountDetailsByUserId(user.getId()));
+
+        return "users/details";
     }
 
 }

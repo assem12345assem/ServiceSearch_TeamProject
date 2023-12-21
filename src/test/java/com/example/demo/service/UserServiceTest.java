@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,12 +58,12 @@ class UserServiceTest {
     @Test
     void testRegisterExistingUser() {
         UserDto userDto = new UserDto();
-        userDto.setPhoneNumber("1234567890");
+        userDto.setPhoneNumber("123");
         userDto.setCountry("Кыргызстан");
         userDto.setCity("Бишкек");
         when(userRepository.findByPhoneNumber(userDto.getPhoneNumber())).thenReturn(Optional.of(new User()));
 
-        assertThrows(IllegalArgumentException.class, () -> userService.register(userDto));
+        assertThrows(InvalidPropertiesFormatException.class, () -> userService.register(userDto));
     }
 
 
